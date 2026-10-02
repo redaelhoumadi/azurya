@@ -26,7 +26,7 @@ export function Expertises() {
         <div className="relative -mx-5 mt-14 sm:-mx-8 sm:mt-16 md:mx-0">
           <ul
             id="expertises-list"
-            className="flex snap-x snap-mandatory scroll-px-5 gap-4 overflow-x-auto overscroll-x-contain py-1 pr-14 pl-5 [scrollbar-width:none] sm:scroll-px-8 sm:pl-8 md:grid md:grid-cols-2 md:gap-5 md:overflow-visible md:p-0 lg:grid-cols-3 [&::-webkit-scrollbar]:hidden"
+            className="relative flex snap-x snap-mandatory scroll-px-5 gap-4 overflow-x-auto overscroll-x-contain py-1 pr-14 pl-5 [scrollbar-width:none] sm:scroll-px-8 sm:pl-8 md:grid md:grid-cols-2 md:gap-5 md:overflow-visible md:p-0 lg:grid-cols-3 [&::-webkit-scrollbar]:hidden"
           >
             {expertises.map(({ id, icon: Icon, title, benefit, points }) => (
               <li
