@@ -1,0 +1,167 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+/*
+ * Direction artistique azurya
+ * Violet #74569C (marque et texte) · Mauve #CEA6C9 (accent) · Encre #5A4180 (fonds sombres) · Blanc #FFFFFF
+ * Contrastes vérifiés (WCAG 2.2 AA) :
+ *  - violet sur blanc 5,9:1  · blanc sur violet 5,9:1
+ *  - blanc sur encre 8,4:1 · mauve sur encre 3,8:1 (grands textes uniquement) · le mauve n'est jamais utilisé pour du texte sur fond clair
+ */
+@theme {
+  --color-brand: #74569c;
+  --color-brand-deep: #5a4180;
+  --color-blush: #cea6c9;
+  --color-blush-soft: #ecdcea;
+  --color-ink: #5a4180;
+  --color-ink-soft: #1d1a21;
+  --color-mist: #f7f2f7;
+  --color-haze: #e7dde9;
+  --color-graphite: #57505f;
+
+  /* Tokens sémantiques (compatibles shadcn/ui) */
+  --color-background: #ffffff;
+  --color-foreground: #74569c;
+  --color-primary: #74569c;
+  --color-primary-foreground: #ffffff;
+  --color-secondary: #f7f2f7;
+  --color-secondary-foreground: #74569c;
+  --color-muted: #f7f2f7;
+  --color-muted-foreground: #57505f;
+  --color-accent: #f7f2f7;
+  --color-accent-foreground: #74569c;
+  --color-border: #e7dde9;
+  --color-input: #cbbdd0;
+  --color-ring: #74569c;
+  --color-destructive: #b3261e;
+  --color-popover: #ffffff;
+  --color-popover-foreground: #74569c;
+  --color-card: #ffffff;
+  --color-card-foreground: #74569c;
+
+  --font-sans: var(--font-poppins), ui-sans-serif, system-ui, "Segoe UI", Roboto, sans-serif;
+  /* Surgena : voir lib/fonts.ts. Poppins sert de repli. */
+  --font-display: var(--font-surgena, var(--font-poppins)), ui-sans-serif, system-ui, sans-serif;
+
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1.25rem;
+  --radius-xl: 1.75rem;
+
+  --ease-brand: cubic-bezier(0.22, 1, 0.36, 1);
+
+  --animate-appear: appear 0.7s var(--ease-brand) both;
+  --animate-marquee: marquee 45s linear infinite;
+  --animate-accordion-down: accordion-down 0.28s var(--ease-brand);
+  --animate-accordion-up: accordion-up 0.22s var(--ease-brand);
+
+  /* Défilement continu du bandeau partenaires (deux copies de la liste côte à côte) */
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-100%); }
+  }
+  /* Apparition douce des textes du hero (d'après Launch UI) */
+  @keyframes appear {
+    from { opacity: 0; transform: translateY(0.75rem); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes accordion-down {
+    from { height: 0; }
+    to { height: var(--radix-accordion-content-height); }
+  }
+  @keyframes accordion-up {
+    from { height: var(--radix-accordion-content-height); }
+    to { height: 0; }
+  }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-feature-settings: "kern", "liga";
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Les ancres restent visibles sous le header collant */
+  section[id] {
+    scroll-margin-top: 5rem;
+  }
+
+  ::selection {
+    background: var(--color-blush);
+    color: var(--color-ink);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-brand);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  .on-dark :focus-visible {
+    outline-color: var(--color-blush);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer components {
+  /* Titres éditoriaux : crénage serré, équilibrage des lignes */
+  .display {
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: -0.025em;
+    text-wrap: balance;
+  }
+
+  .prose-body {
+    text-wrap: pretty;
+  }
+
+  .container-page {
+    width: 100%;
+    max-width: 78rem;
+    margin-inline: auto;
+    padding-inline: 1.25rem;
+  }
+
+  @media (min-width: 640px) {
+    .container-page {
+      padding-inline: 2rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .container-page {
+      padding-inline: 3rem;
+    }
+  }
+
+  /*
+   * Forme signature : reprend la lettre « a » du logo,
+   * arrondie côté gauche et franche côté droit.
+   */
+  .shape-a {
+    border-radius: 999px 0.35rem 0.35rem 999px;
+  }
+
+  .card-brand {
+    border-radius: 1.5rem 0.4rem 1.5rem 1.5rem;
+  }
+}
